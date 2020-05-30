@@ -11,11 +11,14 @@
     "^.+\\.ts$": "ts-jest"
   },
   "testEnvironment": "node",
-  "reporters": [ "default" ],
+  "reporters": [
+    "default"
+  ],
   "coveragePathIgnorePatterns": [
     "<rootDir>/node_modules/",
     "<rootDir>/coverage/"
   ],
+  "setupFiles": ["<rootDir>/test/utils/setup.ts"],
   "globals": {
     "ts-jest": {
       "diagnostics": false

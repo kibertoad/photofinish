@@ -9,9 +9,9 @@ export type AsyncFunctionType = () => Promise<any>
 
 export type Benchmark = {
   name: string
-  warmupCycles: number
-  benchmarkCycles: number
-  benchmarkCycleSamples: number
+  warmupCycles: number // How many times function will be run before benchmarking starts in order to allow Node.js to perform optimizations
+  benchmarkCycles: number // How many execution cycles are executed in order to collect samples
+  benchmarkCycleSamples: number // How many samples per cycle are generated. Note that samples below 15 and above 85 percentile are discarded as insignificant
   functionUnderTest: FunctionType | undefined
   asyncFunctionUnderTest: AsyncFunctionType | undefined
   execute: () => BenchmarkResults
