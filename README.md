@@ -48,9 +48,9 @@ describe('benchmarkExecutioner', () => {
         .build()
 
       const benchmarkResult = benchmark.execute()
-      expect(benchmarkResult.avgTime).toBeInstanceOf(Measurement)
+      expect(benchmarkResult.meanTime).toBeInstanceOf(Measurement)
       // @ts-ignore
-      expect(benchmarkResult.avgTime.getTimeInMilliSeconds()).toBeAround(0, 1)
+      expect(benchmarkResult.meanTime.getTimeInMilliSeconds()).toBeAround(0, 1)
     })
   })
 
@@ -70,9 +70,9 @@ describe('benchmarkExecutioner', () => {
         .build()
 
       const benchmarkResult = await benchmark.executeAsync()
-      expect(benchmarkResult.avgTime).toBeInstanceOf(Measurement)
+      expect(benchmarkResult.meanTime).toBeInstanceOf(Measurement)
       // @ts-ignore
-      expect(benchmarkResult.avgTime.getTimeInMilliSeconds()).toBeAround(100, 0)
+      expect(benchmarkResult.meanTime.getTimeInMilliSeconds()).toBeAround(100, 0)
     })
   })
 })

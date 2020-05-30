@@ -12,9 +12,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "jest --config=jest.config.json",
+    "test": "jest --config=jest.config.json --runInBand",
     "test:update-snapshots": "jest --config=jest.config.json -u",
-    "test:coverage": "jest --config=jest.config.json --coverage",
+    "test:coverage": "jest --config=jest.config.json --coverage --runInBand",
     "test:ci": "npm run lint && npm run test:coverage",
     "lint": "eslint --format codeframe \"lib/**/*.ts\" \"test/**/*.ts\"",
     "prettier": "prettier --write \"{lib,test}/**/*.{js,ts}\" index.ts",

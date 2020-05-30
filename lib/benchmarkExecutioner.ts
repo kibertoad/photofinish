@@ -3,7 +3,7 @@ import { Measurement } from './Measurement'
 import { filterSignificantSamples, calculateMean } from './mathUtils'
 
 export type BenchmarkResults = {
-  avgTime: Measurement
+  meanTime: Measurement
 }
 
 async function warmupAsync(warmupCycles: number, functionUnderTest: AsyncFunctionType) {
@@ -43,7 +43,7 @@ export function executeBenchmarkSync(benchmark: Benchmark): BenchmarkResults {
   const meanTime = calculateMean(significantSamples)
 
   return {
-    avgTime: new Measurement(meanTime),
+    meanTime: new Measurement(meanTime),
   }
 }
 
@@ -72,6 +72,6 @@ export async function executeBenchmarkAsync(benchmark: Benchmark): Promise<Bench
   const meanTime = calculateMean(significantSamples)
 
   return {
-    avgTime: new Measurement(meanTime),
+    meanTime: new Measurement(meanTime),
   }
 }
