@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BenchmarkBuilder creates correct benchmark instance 1`] = `
+BenchmarkBuilder {
+  "_benchmarkCycleSamples": 55,
+  "_benchmarkCycles": 44,
+  "_functionUnderTest": [Function],
+  "_name": "Dummy name",
+  "_warmupCycles": 500,
+}
+`;
