@@ -35,7 +35,7 @@ jobs:
       - image: node:12
     steps:
       - test-nodejs
-  node-v13:
+  node-v14:
     docker:
       - image: node:14
     steps:
