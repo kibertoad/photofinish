@@ -1,10 +1,12 @@
-import { Benchmark, FunctionType } from './BenchmarkBuilder'
+import { AsyncFunctionType, Benchmark, FunctionType } from './BenchmarkBuilder'
+import { Measurement } from './Measurement'
+import { filterSignificantSamples, calculateMean } from './mathUtils'
 
 export type BenchmarkResults = {
-  avgTime: number
+  avgTime: Measurement
 }
 
-async function warmupAsync(warmupCycles: number, functionUnderTest: FunctionType) {
+async function warmupAsync(warmupCycles: number, functionUnderTest: AsyncFunctionType) {
   for (let i = 0; i < warmupCycles; i++) {
     await functionUnderTest()
   }
@@ -22,8 +24,26 @@ export function executeBenchmarkSync(benchmark: Benchmark): BenchmarkResults {
   }
   warmup(benchmark.warmupCycles, benchmark.functionUnderTest)
 
+  // Perform all cycles
+  const significantSamples = []
+  for (let i = 0; i < benchmark.benchmarkCycles; i++) {
+    // Perform full cycle
+    const samples = []
+    for (let i = 0; i < benchmark.benchmarkCycleSamples; i++) {
+      const hrStart = process.hrtime()
+      benchmark.functionUnderTest()
+      const hrEnd = process.hrtime(hrStart)
+      const [, timeTakenInNanoSeconds] = hrEnd
+      samples.push(timeTakenInNanoSeconds)
+    }
+    const significantCycleSamples = filterSignificantSamples(samples)
+    significantSamples.push(...significantCycleSamples)
+  }
+
+  const meanTime = calculateMean(significantSamples)
+
   return {
-    avgTime: 0,
+    avgTime: new Measurement(meanTime),
   }
 }
 
@@ -33,7 +53,25 @@ export async function executeBenchmarkAsync(benchmark: Benchmark): Promise<Bench
   }
   await warmupAsync(benchmark.warmupCycles, benchmark.asyncFunctionUnderTest)
 
+  // Perform all cycles
+  const significantSamples = []
+  for (let i = 0; i < benchmark.benchmarkCycles; i++) {
+    // Perform full cycle
+    const samples = []
+    for (let i = 0; i < benchmark.benchmarkCycleSamples; i++) {
+      const hrStart = process.hrtime()
+      await benchmark.asyncFunctionUnderTest()
+      const hrEnd = process.hrtime(hrStart)
+      const [, timeTakenInNanoSeconds] = hrEnd
+      samples.push(timeTakenInNanoSeconds)
+    }
+    const significantCycleSamples = filterSignificantSamples(samples)
+    significantSamples.push(...significantCycleSamples)
+  }
+
+  const meanTime = calculateMean(significantSamples)
+
   return {
-    avgTime: 0,
+    avgTime: new Measurement(meanTime),
   }
 }
