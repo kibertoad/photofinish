@@ -13,16 +13,21 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --config=jest.config.json",
+    "test:update-snapshots": "jest --config=jest.config.json -u",
     "test:coverage": "jest --config=jest.config.json --coverage",
     "test:ci": "npm run lint && npm run test:coverage",
     "lint": "eslint --format codeframe \"lib/**/*.ts\" \"test/**/*.ts\"",
     "prettier": "prettier --write \"{lib,test}/**/*.{js,ts}\" index.ts",
     "prepublishOnly": "npm run build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "percentile": "^1.3.0",
+    "stats-lite": "^2.2.0"
+  },
   "devDependencies": {
     "@types/jest": "^25.2.3",
     "@types/node": "^14.0.6",
+    "@types/stats-lite": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^3.0.2",
     "@typescript-eslint/parser": "^3.0.2",
     "eslint": "^7.1.0",
@@ -31,7 +36,8 @@
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
     "ts-jest": "^26.0.0",
-    "typescript": "3.9.3"
+    "typescript": "3.9.3",
+    "zoology": "^1.0.0"
   },
   "jest": {
     "collectCoverage": true,
