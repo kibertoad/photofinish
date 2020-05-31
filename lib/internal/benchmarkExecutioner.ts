@@ -1,8 +1,10 @@
-import { AsyncFunctionType, Benchmark, FunctionType } from './BenchmarkBuilder'
-import { Measurement } from './Measurement'
+import { AsyncFunctionType, Benchmark, FunctionType } from '../BenchmarkBuilder'
+import { Measurement } from '../Measurement'
 import { filterSignificantSamples, calculateMean } from './mathUtils'
 
 export type BenchmarkResults = {
+  benchmarkName: string
+  benchmarkEntryName: string
   meanTime: Measurement
 }
 
@@ -43,6 +45,8 @@ export function executeBenchmarkSync(benchmark: Benchmark): BenchmarkResults {
   const meanTime = calculateMean(significantSamples)
 
   return {
+    benchmarkName: benchmark.benchmarkName,
+    benchmarkEntryName: benchmark.benchmarkEntryName,
     meanTime: new Measurement(meanTime),
   }
 }
@@ -72,6 +76,8 @@ export async function executeBenchmarkAsync(benchmark: Benchmark): Promise<Bench
   const meanTime = calculateMean(significantSamples)
 
   return {
+    benchmarkName: benchmark.benchmarkName,
+    benchmarkEntryName: benchmark.benchmarkEntryName,
     meanTime: new Measurement(meanTime),
   }
 }

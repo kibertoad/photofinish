@@ -21,21 +21,25 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "mkdirp": "^1.0.4",
+    "markdown-table": "^2.0.0",
     "percentile": "^1.3.0",
     "stats-lite": "^2.2.0"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
+    "@types/mkdirp": "^1.0.0",
     "@types/node": "^14.0.6",
     "@types/stats-lite": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^3.0.2",
     "@typescript-eslint/parser": "^3.0.2",
+    "cli-testlab": "^2.0.0",
     "eslint": "^7.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
-    "ts-jest": "^26.0.0",
+    "ts-jest": "^26.1.0",
     "typescript": "3.9.3",
     "zoology": "^1.0.0"
   },

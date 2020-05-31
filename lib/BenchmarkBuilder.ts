@@ -2,13 +2,14 @@ import {
   BenchmarkResults,
   executeBenchmarkAsync,
   executeBenchmarkSync,
-} from './benchmarkExecutioner'
+} from './internal/benchmarkExecutioner'
 
 export type FunctionType = () => any
 export type AsyncFunctionType = () => Promise<any>
 
 export type Benchmark = {
-  name: string
+  benchmarkName: string // What problem are we benchmarking, e. g. sorting
+  benchmarkEntryName: string // What solution are we benchmarking, e. g. bubble sort
   warmupCycles: number // How many times function will be run before benchmarking starts in order to allow Node.js to perform optimizations
   benchmarkCycles: number // How many execution cycles are executed in order to collect samples
   benchmarkCycleSamples: number // How many samples per cycle are generated. Note that samples below 15 and above 85 percentile are discarded as insignificant
@@ -19,15 +20,21 @@ export type Benchmark = {
 }
 
 export class BenchmarkBuilder {
-  private _name = 'Benchmark'
+  private _benchmarkName = 'Benchmark'
+  private _benchmarkEntryName = 'Benchmark entry'
   private _warmupCycles = 1000
   private _benchmarkCycles = 20000
   private _benchmarkCycleSamples = 100
   private _functionUnderTest: (() => any) | undefined
   private _asyncFunctionUnderTest: (() => Promise<any>) | undefined
 
-  name(name: string): BenchmarkBuilder {
-    this._name = name
+  benchmarkName(name: string): BenchmarkBuilder {
+    this._benchmarkName = name
+    return this
+  }
+
+  benchmarkEntryName(name: string): BenchmarkBuilder {
+    this._benchmarkEntryName = name
     return this
   }
 
@@ -84,7 +91,8 @@ export class BenchmarkBuilder {
     }
 
     const benchmark: Benchmark = {
-      name: this._name,
+      benchmarkName: this._benchmarkName,
+      benchmarkEntryName: this._benchmarkEntryName,
       warmupCycles: this._warmupCycles,
       benchmarkCycles: this._benchmarkCycles,
       benchmarkCycleSamples: this._benchmarkCycleSamples,
