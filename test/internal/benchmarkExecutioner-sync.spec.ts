@@ -1,5 +1,5 @@
-import { BenchmarkBuilder } from '../lib/BenchmarkBuilder'
-import { Measurement } from '../lib/Measurement'
+import { BenchmarkBuilder } from '../../lib/BenchmarkBuilder'
+import { Measurement } from '../../lib/Measurement'
 
 describe('benchmarkExecutioner', () => {
   describe('sync function under test', () => {
@@ -8,7 +8,7 @@ describe('benchmarkExecutioner', () => {
 
       const benchmarkBuilder = new BenchmarkBuilder()
       const benchmark = benchmarkBuilder
-        .name('Dummy name')
+        .benchmarkName('Dummy name')
         .warmupCycles(500)
         .benchmarkCycles(44)
         .benchmarkCycleSamples(55)

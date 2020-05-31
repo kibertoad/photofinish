@@ -1,4 +1,4 @@
-import { calculateMean, filterSignificantSamples } from '../lib/mathUtils'
+import { calculateMean, filterSignificantSamples } from '../../lib/internal/mathUtils'
 
 describe('mathUtils', () => {
   describe('getSignificantSamples', () => {

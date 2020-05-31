@@ -40,7 +40,7 @@ describe('benchmarkExecutioner', () => {
 
       const benchmarkBuilder = new BenchmarkBuilder()
       const benchmark = benchmarkBuilder
-        .name('noop')
+        .benchmarkName('noop')
         .warmupCycles(500)
         .benchmarkCycles(44)
         .benchmarkCycleSamples(55)
@@ -62,7 +62,7 @@ describe('benchmarkExecutioner', () => {
 
       const benchmarkBuilder = new BenchmarkBuilder()
       const benchmark = benchmarkBuilder
-        .name('Delay 100 msecs')
+        .benchmarkName('Delay 100 msecs')
         .warmupCycles(2)
         .benchmarkCycles(5)
         .benchmarkCycleSamples(5)
