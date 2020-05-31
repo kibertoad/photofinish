@@ -1,7 +1,7 @@
 import { BenchmarkResults } from './internal/benchmarkExecutioner'
 import mkdirp from 'mkdirp'
 import path from 'path'
-import fs from 'fs/promises'
+import { promises as fs } from 'fs'
 
 const nodeVersion = process.versions.node
 const runtimeVersion = `${nodeVersion}, V8 ${process.versions.v8}`
