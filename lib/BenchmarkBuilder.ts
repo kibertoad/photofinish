@@ -10,6 +10,7 @@ export type AsyncFunctionType = () => Promise<any>
 export type Benchmark = {
   benchmarkName: string // What problem are we benchmarking, e. g. sorting
   benchmarkEntryName: string // What solution are we benchmarking, e. g. bubble sort
+  nodeVersion: string
   warmupCycles: number // How many times function will be run before benchmarking starts in order to allow Node.js to perform optimizations
   benchmarkCycles: number // How many execution cycles are executed in order to collect samples
   benchmarkCycleSamples: number // How many samples per cycle are generated. Note that samples below 15 and above 85 percentile are discarded as insignificant
@@ -91,6 +92,7 @@ export class BenchmarkBuilder {
     }
 
     const benchmark: Benchmark = {
+      nodeVersion: process.versions.node,
       benchmarkName: this._benchmarkName,
       benchmarkEntryName: this._benchmarkEntryName,
       warmupCycles: this._warmupCycles,
