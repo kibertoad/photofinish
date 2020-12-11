@@ -54,10 +54,10 @@
       }
     }
   },
-  "homepage": "http://github.com/kibertoad/canned-enterprise-node",
+  "homepage": "http://github.com/kibertoad/photofinish",
   "repository": {
     "type": "git",
-    "url": "git://github.com/kibertoad/canned-enterprise-node.git"
+    "url": "git://github.com/kibertoad/photofinish.git"
   },
   "keywords": [
     "benchmark",
