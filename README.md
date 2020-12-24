@@ -1,9 +1,8 @@
 # photofinish
-
-Benchmarking library for Node.js that emphasizes convenience of use
-
   [![NPM Version][npm-image]][npm-url]
   [![Linux Build][circleci-image]][circleci-url]
+
+Benchmarking library for Node.js that emphasizes convenience of use
 
 ## Install
 
