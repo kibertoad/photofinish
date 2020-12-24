@@ -25,7 +25,7 @@ export function generateTable(
         : entry.benchmarkEntryName,
       measurement.getTextInMsecs(options.precision ?? 3),
       measurement.getTextOpsPerSec(),
-      v8Version
+      v8Version,
     ]
 
     tableRows.push(row)
