@@ -1,5 +1,5 @@
 import { generateTable } from '../lib/tableGenerator'
-import { TableData } from "../lib/resultsExporter";
+import { TableData } from '../lib/resultsExporter'
 
 describe('tableGenerator', () => {
   describe('generateTable', () => {

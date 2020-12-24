@@ -12,8 +12,8 @@ export class Measurement {
     return this.timeInNanoSeconds / 1000000
   }
 
-  getTextInMsecs(): string {
-    return `${this.getTimeInMilliSeconds().toFixed(3)} msecs`
+  getTextInMsecs(precision = 3): string {
+    return `${this.getTimeInMilliSeconds().toFixed(precision)} msecs`
   }
 
   getOpsPerSec(): number {
