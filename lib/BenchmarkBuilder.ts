@@ -1,3 +1,4 @@
+import { types } from 'util'
 import {
   BenchmarkResults,
   executeBenchmarkAsync,
@@ -124,6 +125,6 @@ export class BenchmarkBuilder {
   }
 }
 
-function isPromise(value: any) {
-  return Promise.resolve(value) === value
+function isPromise(value: any): boolean {
+  return types.isPromise(value)
 }

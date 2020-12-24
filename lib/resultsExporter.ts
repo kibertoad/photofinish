@@ -1,5 +1,4 @@
 import { BenchmarkResults } from './internal/benchmarkExecutioner'
-import mkdirp from 'mkdirp'
 import path from 'path'
 import { promises as fs } from 'fs'
 
@@ -39,7 +38,7 @@ export async function exportResults(
   )
   const resolvedPathFile = path.resolve(resolvedPathDir, filename)
 
-  await mkdirp(resolvedPathDir)
+  await fs.mkdir(resolvedPathDir, { recursive: true })
   await fs.writeFile(resolvedPathFile, JSON.stringify(exportData))
 }
 

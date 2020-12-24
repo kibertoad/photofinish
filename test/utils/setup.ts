@@ -15,4 +15,32 @@ expect.extend({
       }
     }
   },
+
+  toHavePercentageDifference(
+    actual: number,
+    expectedBaseNumber: number,
+    expectedPercentageDifference: number
+  ) {
+    const difference = Math.abs(actual - expectedBaseNumber)
+    const percentageDifference = (difference * 100) / expectedBaseNumber
+    const pass = percentageDifference <= expectedPercentageDifference
+
+    if (pass) {
+      return {
+        message: () =>
+          `expected ${actual} to differ from ${expectedBaseNumber} no less than by ${expectedPercentageDifference}%, but real difference was ${percentageDifference.toFixed(
+            1
+          )}%`,
+        pass: true,
+      }
+    } else {
+      return {
+        message: () =>
+          `expected ${actual} to differ from ${expectedBaseNumber} no more than by ${expectedPercentageDifference}%, but real difference was ${percentageDifference.toFixed(
+            1
+          )}%`,
+        pass: false,
+      }
+    }
+  },
 })

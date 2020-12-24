@@ -20,6 +20,16 @@ function warmup(warmupCycles: number, functionUnderTest: FunctionType) {
   }
 }
 
+function processResults(benchmark: Benchmark, significantSamples: number[]): BenchmarkResults {
+  const meanTime = calculateMean(significantSamples)
+
+  return {
+    benchmarkName: benchmark.benchmarkName,
+    benchmarkEntryName: benchmark.benchmarkEntryName,
+    meanTime: new Measurement(meanTime),
+  }
+}
+
 export function executeBenchmarkSync(benchmark: Benchmark): BenchmarkResults {
   if (!benchmark.functionUnderTest) {
     throw new Error('Function under test is not set')
@@ -27,7 +37,7 @@ export function executeBenchmarkSync(benchmark: Benchmark): BenchmarkResults {
   warmup(benchmark.warmupCycles, benchmark.functionUnderTest)
 
   // Perform all cycles
-  const significantSamples = []
+  const significantSamples: number[] = []
   for (let i = 0; i < benchmark.benchmarkCycles; i++) {
     // Perform full cycle
     const samples = []
@@ -42,13 +52,7 @@ export function executeBenchmarkSync(benchmark: Benchmark): BenchmarkResults {
     significantSamples.push(...significantCycleSamples)
   }
 
-  const meanTime = calculateMean(significantSamples)
-
-  return {
-    benchmarkName: benchmark.benchmarkName,
-    benchmarkEntryName: benchmark.benchmarkEntryName,
-    meanTime: new Measurement(meanTime),
-  }
+  return processResults(benchmark, significantSamples)
 }
 
 export async function executeBenchmarkAsync(benchmark: Benchmark): Promise<BenchmarkResults> {
@@ -73,11 +77,5 @@ export async function executeBenchmarkAsync(benchmark: Benchmark): Promise<Bench
     significantSamples.push(...significantCycleSamples)
   }
 
-  const meanTime = calculateMean(significantSamples)
-
-  return {
-    benchmarkName: benchmark.benchmarkName,
-    benchmarkEntryName: benchmark.benchmarkEntryName,
-    meanTime: new Measurement(meanTime),
-  }
+  return processResults(benchmark, significantSamples)
 }
