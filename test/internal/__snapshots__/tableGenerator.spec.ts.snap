@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`tableGenerator generateTable generate correct table 1`] = `
-"| Option          | Msecs/op      | Ops/sec |
-| --------------- | ------------- | ------- |
-| Benchmark entry | 101.745 msecs | 9.829   |"
-`;

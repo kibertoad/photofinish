@@ -5,6 +5,7 @@ import { filterSignificantSamples, calculateMean } from './mathUtils'
 export type BenchmarkResults = {
   benchmarkName: string
   benchmarkEntryName: string
+  benchmarkEntryVersion?: string
   meanTime: Measurement
 }
 

@@ -1,5 +1,6 @@
 export { BenchmarkBuilder } from './lib/BenchmarkBuilder'
 export { exportResults } from './lib/resultsExporter'
+export { generateTable } from './lib/tableGenerator'
 export type { Benchmark, FunctionType, AsyncFunctionType } from './lib/BenchmarkBuilder'
 export type { Measurement } from './lib/Measurement'
 export type { BenchmarkResults } from './lib/internal/benchmarkExecutioner'

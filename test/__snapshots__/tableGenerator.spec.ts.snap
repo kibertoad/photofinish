@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tableGenerator generateTable generate correct table with version 1`] = `
+"| Option      | Msecs/op | Ops/sec       |       |
+| ----------- | -------- | ------------- | ----- |
+| Version     |          |               |       |
+| Dummy entry | 1.0.0    | 101.745 msecs | 9.829 |"
+`;
+
+exports[`tableGenerator generateTable generate correct table without version 1`] = `
+"| Option          | Msecs/op      | Ops/sec |
+| --------------- | ------------- | ------- |
+| Benchmark entry | 101.745 msecs | 9.829   |"
+`;
