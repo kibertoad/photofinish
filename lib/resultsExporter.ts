@@ -39,7 +39,7 @@ export function exportResults(
   const resolvedPathFile = path.resolve(resolvedPathDir, filename)
 
   fs.mkdirSync(resolvedPathDir, { recursive: true })
-  fs.writeFileSync(resolvedPathFile, JSON.stringify(exportData))
+  fs.writeFileSync(resolvedPathFile, JSON.stringify(exportData, null, 2))
 }
 
 function normalizePath(path: string) {
