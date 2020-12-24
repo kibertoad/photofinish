@@ -38,6 +38,10 @@ describe('resultsImporter', () => {
       expect(fileTestHelper.fileExists(expectedFilePath2)).toBe(true)
 
       const loadResult = await loadResults(exportPath, results.benchmarkName)
+      loadResult.forEach((entry) => {
+        expect(entry.runtimeVersion).toBeDefined();
+        entry.runtimeVersion = 'Mock Node version'
+      })
       expect(loadResult).toMatchSnapshot()
 
       fileTestHelper.deleteDir(exportPath)
