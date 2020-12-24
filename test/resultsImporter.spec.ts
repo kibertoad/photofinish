@@ -40,7 +40,7 @@ describe('resultsImporter', () => {
       const loadResult = await loadResults(exportPath)
       loadResult.forEach((entry) => {
         expect(entry.runtimeVersion).toBeDefined()
-        entry.runtimeVersion = 'Mock Node version'
+        entry.runtimeVersion = '10.23.0, V8 6.8.275.32-node.59'
       })
       expect(loadResult).toMatchSnapshot()
 
