@@ -1,6 +1,6 @@
 {
   "name": "photofinish",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "license": "MIT",
   "description": "Benchmarking library for Node.js that emphasizes convenience of use",
   "maintainers": [

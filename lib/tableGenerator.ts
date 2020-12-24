@@ -1,18 +1,20 @@
+import { TableData } from "./resultsExporter";
+import { Measurement } from "./Measurement";
+
 const table = require('markdown-table')
 
-import { BenchmarkResults } from './internal/benchmarkExecutioner'
-
-export function generateTable(results: readonly BenchmarkResults[]): string[][] {
+export function generateTable(results: readonly TableData[]): string[][] {
   const tableRows: string[][] = [['Option', 'Msecs/op', 'Ops/sec']]
   if (results[0].benchmarkEntryVersion) {
     tableRows.splice(1, 0, ['Version'])
   }
 
   results.map((entry) => {
+    const measurement = new Measurement(entry.meanTimeNs)
     const row = [
       entry.benchmarkEntryName,
-      entry.meanTime.getTextInMsecs(),
-      entry.meanTime.getTextOpsPerSec(),
+      measurement.getTextInMsecs(),
+      measurement.getTextOpsPerSec(),
     ]
     if (entry.benchmarkEntryVersion) {
       row.splice(1, 0, entry.benchmarkEntryVersion)

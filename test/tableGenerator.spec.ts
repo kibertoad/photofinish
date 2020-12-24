@@ -1,25 +1,26 @@
-import { Measurement } from '../lib/Measurement'
-import { BenchmarkResults } from '../lib/internal/benchmarkExecutioner'
 import { generateTable } from '../lib/tableGenerator'
+import { TableData } from "../lib/resultsExporter";
 
 describe('tableGenerator', () => {
   describe('generateTable', () => {
     it('generate correct table without version', async () => {
-      const result: BenchmarkResults = {
+      const result: TableData = {
+        runtimeVersion: 'Dummy version',
         benchmarkName: 'Dummy benchmark',
         benchmarkEntryName: 'Benchmark entry',
-        meanTime: new Measurement(101744870),
+        meanTimeNs: 101744870,
       }
 
       expect(generateTable([result])).toMatchSnapshot()
     })
 
     it('generate correct table with version', async () => {
-      const result: BenchmarkResults = {
+      const result: TableData = {
+        runtimeVersion: 'Dummy version',
         benchmarkName: 'Dummy benchmark',
         benchmarkEntryName: 'Dummy entry',
         benchmarkEntryVersion: '1.0.0',
-        meanTime: new Measurement(101744870),
+        meanTimeNs: 101744870,
       }
 
       expect(generateTable([result])).toMatchSnapshot()

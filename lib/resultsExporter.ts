@@ -11,7 +11,7 @@ export type TableData = {
   benchmarkEntryName: string
   benchmarkEntryVersion?: string
   meanTimeNs: number
-  meanTimeMs: number
+  meanTimeMs?: number
 }
 
 export type ExportOptions = {
