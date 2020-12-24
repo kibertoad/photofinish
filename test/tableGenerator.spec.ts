@@ -2,10 +2,6 @@ import { Measurement } from '../lib/Measurement'
 import { BenchmarkResults } from '../lib/internal/benchmarkExecutioner'
 import { generateTable } from '../lib/tableGenerator'
 
-function sleep(ms: number): Promise<any> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
 describe('tableGenerator', () => {
   describe('generateTable', () => {
     it('generate correct table without version', async () => {

@@ -2,10 +2,7 @@ import { TableData } from './resultsExporter'
 
 const { loadFiles } = require('load-goblin')
 
-export async function loadResults(
-  baseResultsDir: string,
-  benchmarkName: string
-): Promise<TableData[]> {
+export async function loadResults(baseResultsDir: string): Promise<TableData[]> {
   const loadResults = await loadFiles({
     filter: '*.json',
     rootDirectory: baseResultsDir,
@@ -15,7 +12,7 @@ export async function loadResults(
   return loadResults.map((entry: Record<string, any>) => {
     return {
       runtimeVersion: entry.content.runtimeVersion,
-      benchmarkName,
+      benchmarkName: entry.content.benchmarkName,
       benchmarkEntryName: entry.content.benchmarkEntryName,
       benchmarkEntryVersion: entry.content.benchmarkEntryVersion,
       meanTimeNs: entry.content.meanTimeNs,
