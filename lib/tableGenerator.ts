@@ -11,21 +11,17 @@ export function generateTable(
   results: readonly TableData[],
   options: TableOptions = {}
 ): string[][] {
-  const tableRows: string[][] = [['Option', 'Msecs/op', 'Ops/sec']]
-  if (results[0].benchmarkEntryVersion) {
-    tableRows.splice(1, 0, ['Version'])
-  }
+  const tableIndex: string[] = ['Node', 'Option', 'Msecs/op', 'Ops/sec']
 
+  const tableRows: string[][] = [tableIndex]
   results.map((entry) => {
     const measurement = new Measurement(entry.meanTimeNs)
     const row = [
-      entry.benchmarkEntryName,
+      entry.runtimeVersion,
+      entry.benchmarkEntryVersion ? `${entry.benchmarkEntryName} ${entry.benchmarkEntryVersion}` : entry.benchmarkEntryName,
       measurement.getTextInMsecs(options.precision ?? 3),
       measurement.getTextOpsPerSec(),
     ]
-    if (entry.benchmarkEntryVersion) {
-      row.splice(1, 0, entry.benchmarkEntryVersion)
-    }
 
     tableRows.push(row)
   })
