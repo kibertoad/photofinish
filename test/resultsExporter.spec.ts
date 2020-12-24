@@ -11,14 +11,14 @@ const filename = `${nodeVersion.slice(0, 2)}.json`
 
 describe('resultsExporter', () => {
   describe('exportResults', () => {
-    it('successfully writes benchmark results to a file', async () => {
+    it('successfully writes benchmark results to a file', () => {
       const fileTestHelper = new FileTestHelper()
       const results: BenchmarkResults = {
         benchmarkName: 'Benchmark',
         benchmarkEntryName: 'Benchmark entry',
         meanTime: new Measurement(450),
       }
-      await exportResults(results, {
+      exportResults(results, {
         exportPath,
       })
 

@@ -1,6 +1,6 @@
 import { BenchmarkResults } from './internal/benchmarkExecutioner'
 import path from 'path'
-import { promises as fs } from 'fs'
+import fs from 'fs'
 
 const nodeVersion = process.versions.node
 const runtimeVersion = `${nodeVersion}, V8 ${process.versions.v8}`
@@ -17,10 +17,10 @@ export type ExportOptions = {
   exportPath?: string
 }
 
-export async function exportResults(
+export function exportResults(
   benchmarkResults: BenchmarkResults,
   options: ExportOptions = {}
-): Promise<void> {
+): void {
   const exportPath = options?.exportPath ?? '/results'
   const exportData: TableData = {
     runtimeVersion,
@@ -38,8 +38,8 @@ export async function exportResults(
   )
   const resolvedPathFile = path.resolve(resolvedPathDir, filename)
 
-  await fs.mkdir(resolvedPathDir, { recursive: true })
-  await fs.writeFile(resolvedPathFile, JSON.stringify(exportData))
+  fs.mkdirSync(resolvedPathDir, { recursive: true })
+  fs.writeFileSync(resolvedPathFile, JSON.stringify(exportData))
 }
 
 function normalizePath(path: string) {
