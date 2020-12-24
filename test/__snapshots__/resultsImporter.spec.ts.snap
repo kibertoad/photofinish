@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resultsImporter loadResults successfully loads benchmark results from files 1`] = `
+Array [
+  Object {
+    "benchmarkEntryName": "Benchmark entry",
+    "benchmarkEntryVersion": "1.0.0",
+    "benchmarkName": "Benchmark",
+    "meanTimeMs": 0.00045,
+    "meanTimeNs": 450,
+    "runtimeVersion": "10.23.0, V8 6.8.275.32-node.59",
+  },
+  Object {
+    "benchmarkEntryName": "Benchmark entry 2",
+    "benchmarkEntryVersion": "1.0.5",
+    "benchmarkName": "Benchmark",
+    "meanTimeMs": 0.0006,
+    "meanTimeNs": 600,
+    "runtimeVersion": "10.23.0, V8 6.8.275.32-node.59",
+  },
+]
+`;

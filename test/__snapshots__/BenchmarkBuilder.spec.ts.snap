@@ -5,6 +5,7 @@ BenchmarkBuilder {
   "_benchmarkCycleSamples": 55,
   "_benchmarkCycles": 44,
   "_benchmarkEntryName": "Only entry",
+  "_benchmarkEntryVersion": "1.0.1",
   "_benchmarkName": "Dummy name",
   "_functionUnderTest": [Function],
   "_warmupCycles": 500,

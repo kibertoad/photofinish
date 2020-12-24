@@ -1,12 +1,8 @@
 const table = require('markdown-table')
 
-import { Benchmark } from './BenchmarkBuilder'
 import { BenchmarkResults } from './internal/benchmarkExecutioner'
 
-export function generateTable(
-  benchmark: Benchmark,
-  results: readonly BenchmarkResults[]
-): string[][] {
+export function generateTable(results: readonly BenchmarkResults[]): string[][] {
   const tableRows: string[][] = [['Option', 'Msecs/op', 'Ops/sec']]
   if (results[0].benchmarkEntryVersion) {
     tableRows.splice(1, 0, ['Version'])

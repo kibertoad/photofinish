@@ -9,6 +9,7 @@ export type TableData = {
   runtimeVersion: string
   benchmarkName: string
   benchmarkEntryName: string
+  benchmarkEntryVersion?: string
   meanTimeNs: number
   meanTimeMs: number
 }
@@ -26,6 +27,7 @@ export function exportResults(
     runtimeVersion,
     benchmarkName: benchmarkResults.benchmarkName,
     benchmarkEntryName: benchmarkResults.benchmarkEntryName,
+    benchmarkEntryVersion: benchmarkResults.benchmarkEntryVersion,
     meanTimeNs: benchmarkResults.meanTime.getTimeInNanoSeconds(),
     meanTimeMs: benchmarkResults.meanTime.getTimeInMilliSeconds(),
   }

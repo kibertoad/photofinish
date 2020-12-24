@@ -7,6 +7,7 @@ describe('BenchmarkBuilder', () => {
     const benchmark = benchmarkBuilder
       .benchmarkName('Dummy name')
       .benchmarkEntryName('Only entry')
+      .benchmarkEntryVersion('1.0.1')
       .warmupCycles(500)
       .benchmarkCycles(44)
       .benchmarkCycleSamples(55)
