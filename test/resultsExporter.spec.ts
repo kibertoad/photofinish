@@ -22,7 +22,7 @@ describe('resultsExporter', () => {
         exportPath,
       })
 
-      const expectedFilePath = `${exportPath}/benchmark/benchmark_entry/${filename}`
+      const expectedFilePath = `${exportPath}/benchmark/benchmark_entry/${results.benchmarkName}-${results.benchmarkEntryName}-Node_${filename}`
       expect(fileTestHelper.fileExists(expectedFilePath)).toBe(true)
       const storedResultsAsText = fileTestHelper.getFileTextContent(expectedFilePath)
       const storedResults = JSON.parse(storedResultsAsText)

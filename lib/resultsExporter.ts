@@ -30,7 +30,9 @@ export function exportResults(
     meanTimeMs: benchmarkResults.meanTime.getTimeInMilliSeconds(),
   }
 
-  const filename = `${benchmarkResults.benchmarkName}-${benchmarkResults.benchmarkEntryName}-Node_${nodeVersion.slice(0, 2)}.json`
+  const filename = `${benchmarkResults.benchmarkName}-${
+    benchmarkResults.benchmarkEntryName
+  }-Node_${nodeVersion.slice(0, 2)}.json`
   const resolvedPathDir = path.resolve(
     exportPath,
     normalizePath(benchmarkResults.benchmarkName),
