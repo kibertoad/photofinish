@@ -7,10 +7,7 @@ export type TableOptions = {
   precision?: number
 }
 
-export function generateTable(
-  results: readonly TableData[],
-  options: TableOptions = {}
-): string[][] {
+export function generateTable(results: readonly TableData[], options: TableOptions = {}): string {
   const tableIndex: string[] = ['Node', 'Option', 'Msecs/op', 'Ops/sec', 'V8']
 
   const tableRows: string[][] = [tableIndex]
