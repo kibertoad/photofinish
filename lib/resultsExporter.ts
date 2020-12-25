@@ -1,9 +1,8 @@
 import { BenchmarkResults } from './internal/benchmarkExecutioner'
 import path from 'path'
 import fs from 'fs'
-
-const nodeVersion = process.versions.node
-const runtimeVersion = `${nodeVersion}, V8 ${process.versions.v8}`
+import { runtimeVersion } from './internal/nodeVersionUtils'
+import { generateResultsFilename } from './internal/filenameUtils'
 
 export type TableData = {
   runtimeVersion: string
@@ -26,7 +25,7 @@ export function exportResults(
   benchmarkResults: BenchmarkResults,
   options: ExportOptions = {}
 ): void {
-  const exportPath = options?.exportPath ?? '/results'
+  const exportPath = options?.exportPath ?? './results'
   const exportData: TableData = {
     runtimeVersion,
     benchmarkName: benchmarkResults.benchmarkName,
@@ -40,17 +39,9 @@ export function exportResults(
     meanTimeMs: benchmarkResults.meanTime.getTimeInMilliSeconds(),
   }
 
-  const labelSuffix = benchmarkResults.label ? `-${benchmarkResults.label}` : ''
-  const filename = `${normalizePath(benchmarkResults.benchmarkName)}-${normalizePath(
-    benchmarkResults.benchmarkEntryName
-  )}-Node_${nodeVersion.slice(0, 2)}${labelSuffix}.json`
-  const resolvedPathDir = path.resolve(exportPath)
-  const resolvedPathFile = path.resolve(resolvedPathDir, filename)
+  const filename = generateResultsFilename(benchmarkResults)
+  const resolvedPathFile = path.resolve(exportPath, filename)
 
-  fs.mkdirSync(resolvedPathDir, { recursive: true })
+  fs.mkdirSync(exportPath, { recursive: true })
   fs.writeFileSync(resolvedPathFile, JSON.stringify(exportData, null, 2))
-}
-
-function normalizePath(path: string) {
-  return path.replace(/ /g, '_').toLowerCase()
 }

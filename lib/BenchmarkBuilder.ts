@@ -4,6 +4,7 @@ import {
   executeBenchmarkAsync,
   executeBenchmarkSync,
 } from './internal/benchmarkExecutioner'
+import { nodeVersion } from './internal/nodeVersionUtils'
 
 export type FunctionType = () => any
 export type AsyncFunctionType = () => Promise<any>
@@ -107,7 +108,7 @@ export class BenchmarkBuilder {
     }
 
     const benchmark: Benchmark = {
-      nodeVersion: process.versions.node,
+      nodeVersion: nodeVersion,
       benchmarkName: this._benchmarkName,
       benchmarkEntryName: this._benchmarkEntryName,
       benchmarkEntryVersion: this._benchmarkEntryVersion,

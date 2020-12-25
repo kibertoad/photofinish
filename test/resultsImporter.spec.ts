@@ -32,7 +32,6 @@ describe('resultsImporter', () => {
         benchmarkEntryName: 'Benchmark_entry_2',
         meanTime: new Measurement(600),
         warmupCycles: 10,
-        label: 'dummy',
         benchmarkCycleSamples: 50,
         benchmarkCycles: 100,
       }
@@ -42,7 +41,7 @@ describe('resultsImporter', () => {
 
       const expectedFilePath = `${exportPath}/${results.benchmarkName}-${results.benchmarkEntryName}-Node_${nodeText}-dummy.json`
       expect(fileTestHelper.fileExists(expectedFilePath)).toBe(true)
-      const expectedFilePath2 = `${exportPath}/${results2.benchmarkName}-${results2.benchmarkEntryName}-Node_${nodeText}-dummy.json`
+      const expectedFilePath2 = `${exportPath}/${results2.benchmarkName}-${results2.benchmarkEntryName}-Node_${nodeText}.json`
       expect(fileTestHelper.fileExists(expectedFilePath2)).toBe(true)
 
       const loadResult = await loadResults(exportPath)

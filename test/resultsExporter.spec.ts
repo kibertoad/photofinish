@@ -2,12 +2,9 @@ import { exportResults } from '../lib/resultsExporter'
 import { BenchmarkResults } from '../lib/internal/benchmarkExecutioner'
 import { FileTestHelper } from 'cli-testlab'
 import { Measurement } from '../lib/Measurement'
+import { nodeVersionMajor, runtimeVersion } from '../lib/internal/nodeVersionUtils'
 
 const exportPath = `${__dirname}/results`
-
-const nodeVersion = process.versions.node
-const runtimeVersion = `${nodeVersion}, V8 ${process.versions.v8}`
-const nodeText = `${nodeVersion.slice(0, 2)}`
 
 describe('resultsExporter', () => {
   describe('exportResults', () => {
@@ -26,7 +23,7 @@ describe('resultsExporter', () => {
         exportPath,
       })
 
-      const expectedFilePath = `${exportPath}/${results.benchmarkName}-${results.benchmarkEntryName}-Node_${nodeText}-dummy.json`
+      const expectedFilePath = `${exportPath}/${results.benchmarkName}-${results.benchmarkEntryName}-Node_${nodeVersionMajor}-dummy.json`
       expect(fileTestHelper.fileExists(expectedFilePath)).toBe(true)
       const storedResultsAsText = fileTestHelper.getFileTextContent(expectedFilePath)
       const storedResults = JSON.parse(storedResultsAsText)
@@ -35,7 +32,7 @@ describe('resultsExporter', () => {
         benchmarkName: 'Benchmark',
         meanTimeMs: 0.00045,
         meanTimeNs: 450,
-        runtimeVersion: runtimeVersion,
+        runtimeVersion,
         warmupCycles: 10,
         label: 'dummy',
         benchmarkCycleSamples: 50,

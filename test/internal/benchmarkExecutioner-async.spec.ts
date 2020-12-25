@@ -22,7 +22,7 @@ describe('benchmarkExecutioner', () => {
       const benchmarkResult = await benchmark.executeAsync()
       expect(benchmarkResult.meanTime).toBeInstanceOf(Measurement)
       // @ts-ignore
-      expect(benchmarkResult.meanTime.getTimeInMilliSeconds()).toHavePercentageDifference(100, 10)
+      expect(benchmarkResult.meanTime.getTimeInMilliSeconds()).toHavePercentageDifference(100, 15)
     })
 
     it('throws an error if wrong function is set', () => {
