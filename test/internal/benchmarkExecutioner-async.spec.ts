@@ -24,5 +24,20 @@ describe('benchmarkExecutioner', () => {
       // @ts-ignore
       expect(benchmarkResult.meanTime.getTimeInMilliSeconds()).toHavePercentageDifference(100, 10)
     })
+
+    it('throws an error if wrong function is set', () => {
+      const benchmarkBuilder = new BenchmarkBuilder()
+      const benchmark = benchmarkBuilder
+        .benchmarkName('Dummy name')
+        .warmupCycles(500)
+        .benchmarkCycles(44)
+        .benchmarkCycleSamples(55)
+        .functionUnderTest(() => {})
+        .build()
+
+      expect(() => {
+        benchmark.executeAsync()
+      }).toThrow(/Function under test is synchronous, use execute\(\) instead/)
+    })
   })
 })

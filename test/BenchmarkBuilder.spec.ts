@@ -17,6 +17,22 @@ describe('BenchmarkBuilder', () => {
     expect(benchmark).toMatchSnapshot()
   })
 
+  it('requires to set at least one function', () => {
+    const benchmarkBuilder = new BenchmarkBuilder()
+
+    expect(() => {
+      benchmarkBuilder
+        .benchmarkName('Dummy name')
+        .benchmarkEntryName('Only entry')
+        .benchmarkEntryVersion('1.0.1')
+        .benchmarkLabel('label1')
+        .warmupCycles(500)
+        .benchmarkCycles(44)
+        .benchmarkCycleSamples(55)
+        .build()
+    }).toThrow(/Either asyncFunctionUnderTest or functionUnderTest needs to bet set/)
+  })
+
   it('does not allow to set asyncFunctionUnderTest if functionUnderTest is set', () => {
     const benchmarkBuilder = new BenchmarkBuilder()
 
