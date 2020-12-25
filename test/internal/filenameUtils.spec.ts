@@ -1,6 +1,7 @@
 import { generateResultsFilename } from '../../lib/internal/filenameUtils'
 import { BenchmarkResults } from '../../lib/internal/benchmarkExecutioner'
 import { Measurement } from '../../lib/Measurement'
+import { nodeVersionMajor } from '../../lib/internal/nodeVersionUtils'
 
 describe('filenameUtils', () => {
   describe('generateResultsFilename', () => {
@@ -15,7 +16,7 @@ describe('filenameUtils', () => {
         benchmarkCycles: 100,
       }
       const filename = generateResultsFilename(results)
-      expect(filename).toEqual('Benchmark-Benchmark_entry-Node_14-dummy.json')
+      expect(filename).toEqual(`Benchmark-Benchmark_entry-Node_${nodeVersionMajor}-dummy.json`)
     })
 
     it('generates correct filename without label', () => {
@@ -28,7 +29,7 @@ describe('filenameUtils', () => {
         benchmarkCycles: 100,
       }
       const filename = generateResultsFilename(results)
-      expect(filename).toEqual('Benchmark-Benchmark_entry-Node_14.json')
+      expect(filename).toEqual(`Benchmark-Benchmark_entry-Node_${nodeVersionMajor}.json`)
     })
   })
 })
