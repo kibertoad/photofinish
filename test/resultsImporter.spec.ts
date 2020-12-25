@@ -7,7 +7,7 @@ import { Measurement } from '../lib/Measurement'
 const exportPath = `${__dirname}/results`
 
 const nodeVersion = process.versions.node
-const filename = `${nodeVersion.slice(0, 2)}.json`
+const nodeText = `${nodeVersion.slice(0, 2)}`
 
 describe('resultsImporter', () => {
   describe('loadResults', () => {
@@ -16,8 +16,12 @@ describe('resultsImporter', () => {
       const results: BenchmarkResults = {
         benchmarkName: 'Benchmark',
         benchmarkEntryVersion: '1.0.0',
-        benchmarkEntryName: 'Benchmark entry',
+        benchmarkEntryName: 'Benchmark_entry',
         meanTime: new Measurement(450),
+        warmupCycles: 10,
+        label: 'dummy',
+        benchmarkCycleSamples: 50,
+        benchmarkCycles: 100,
       }
       exportResults(results, {
         exportPath,
@@ -25,16 +29,19 @@ describe('resultsImporter', () => {
       const results2: BenchmarkResults = {
         benchmarkName: 'Benchmark',
         benchmarkEntryVersion: '1.0.5',
-        benchmarkEntryName: 'Benchmark entry 2',
+        benchmarkEntryName: 'Benchmark_entry_2',
         meanTime: new Measurement(600),
+        warmupCycles: 10,
+        benchmarkCycleSamples: 50,
+        benchmarkCycles: 100,
       }
       exportResults(results2, {
         exportPath,
       })
 
-      const expectedFilePath = `${exportPath}/benchmark/benchmark_entry/${results.benchmarkName}-${results.benchmarkEntryName}-Node_${filename}`
+      const expectedFilePath = `${exportPath}/${results.benchmarkName}-${results.benchmarkEntryName}-Node_${nodeText}-dummy.json`
       expect(fileTestHelper.fileExists(expectedFilePath)).toBe(true)
-      const expectedFilePath2 = `${exportPath}/benchmark/benchmark_entry_2/${results2.benchmarkName}-${results2.benchmarkEntryName}-Node_${filename}`
+      const expectedFilePath2 = `${exportPath}/${results2.benchmarkName}-${results2.benchmarkEntryName}-Node_${nodeText}.json`
       expect(fileTestHelper.fileExists(expectedFilePath2)).toBe(true)
 
       const loadResult = await loadResults(exportPath)

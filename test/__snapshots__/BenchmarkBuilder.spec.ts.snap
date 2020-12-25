@@ -8,6 +8,7 @@ BenchmarkBuilder {
   "_benchmarkEntryVersion": "1.0.1",
   "_benchmarkName": "Dummy name",
   "_functionUnderTest": [Function],
+  "_label": "label1",
   "_warmupCycles": 500,
 }
 `;

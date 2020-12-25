@@ -1,9 +1,8 @@
 import { BenchmarkResults } from './internal/benchmarkExecutioner'
 import path from 'path'
 import fs from 'fs'
-
-const nodeVersion = process.versions.node
-const runtimeVersion = `${nodeVersion}, V8 ${process.versions.v8}`
+import { runtimeVersion } from './internal/nodeVersionUtils'
+import { generateResultsFilename } from './internal/filenameUtils'
 
 export type TableData = {
   runtimeVersion: string
@@ -12,6 +11,10 @@ export type TableData = {
   benchmarkEntryVersion?: string
   meanTimeNs: number
   meanTimeMs?: number
+  warmupCycles: number
+  benchmarkCycles: number
+  benchmarkCycleSamples: number
+  label?: string
 }
 
 export type ExportOptions = {
@@ -22,30 +25,23 @@ export function exportResults(
   benchmarkResults: BenchmarkResults,
   options: ExportOptions = {}
 ): void {
-  const exportPath = options?.exportPath ?? '/results'
+  const exportPath = options?.exportPath ?? './results'
   const exportData: TableData = {
     runtimeVersion,
     benchmarkName: benchmarkResults.benchmarkName,
     benchmarkEntryName: benchmarkResults.benchmarkEntryName,
     benchmarkEntryVersion: benchmarkResults.benchmarkEntryVersion,
+    benchmarkCycles: benchmarkResults.benchmarkCycles,
+    benchmarkCycleSamples: benchmarkResults.benchmarkCycleSamples,
+    label: benchmarkResults.label,
+    warmupCycles: benchmarkResults.warmupCycles,
     meanTimeNs: benchmarkResults.meanTime.getTimeInNanoSeconds(),
     meanTimeMs: benchmarkResults.meanTime.getTimeInMilliSeconds(),
   }
 
-  const filename = `${benchmarkResults.benchmarkName}-${
-    benchmarkResults.benchmarkEntryName
-  }-Node_${nodeVersion.slice(0, 2)}.json`
-  const resolvedPathDir = path.resolve(
-    exportPath,
-    normalizePath(benchmarkResults.benchmarkName),
-    normalizePath(benchmarkResults.benchmarkEntryName)
-  )
-  const resolvedPathFile = path.resolve(resolvedPathDir, filename)
+  const filename = generateResultsFilename(benchmarkResults)
+  const resolvedPathFile = path.resolve(exportPath, filename)
 
-  fs.mkdirSync(resolvedPathDir, { recursive: true })
+  fs.mkdirSync(exportPath, { recursive: true })
   fs.writeFileSync(resolvedPathFile, JSON.stringify(exportData, null, 2))
-}
-
-function normalizePath(path: string) {
-  return path.replace(/ /g, '_').toLowerCase()
 }

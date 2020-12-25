@@ -7,6 +7,10 @@ export type BenchmarkResults = {
   benchmarkEntryName: string
   benchmarkEntryVersion?: string
   meanTime: Measurement
+  warmupCycles: number
+  benchmarkCycles: number
+  benchmarkCycleSamples: number
+  label?: string
 }
 
 async function warmupAsync(warmupCycles: number, functionUnderTest: AsyncFunctionType) {
@@ -27,15 +31,17 @@ function processResults(benchmark: Benchmark, significantSamples: number[]): Ben
   return {
     benchmarkName: benchmark.benchmarkName,
     benchmarkEntryName: benchmark.benchmarkEntryName,
+    benchmarkEntryVersion: benchmark.benchmarkEntryVersion,
+    warmupCycles: benchmark.warmupCycles,
+    benchmarkCycles: benchmark.benchmarkCycles,
+    benchmarkCycleSamples: benchmark.benchmarkCycleSamples,
+    label: benchmark.label,
     meanTime: new Measurement(meanTime),
   }
 }
 
 export function executeBenchmarkSync(benchmark: Benchmark): BenchmarkResults {
-  if (!benchmark.functionUnderTest) {
-    throw new Error('Function under test is not set')
-  }
-  warmup(benchmark.warmupCycles, benchmark.functionUnderTest)
+  warmup(benchmark.warmupCycles, benchmark.functionUnderTest!)
 
   // Perform all cycles
   const significantSamples: number[] = []
@@ -44,7 +50,7 @@ export function executeBenchmarkSync(benchmark: Benchmark): BenchmarkResults {
     const samples = []
     for (let i = 0; i < benchmark.benchmarkCycleSamples; i++) {
       const hrStart = process.hrtime()
-      benchmark.functionUnderTest()
+      benchmark.functionUnderTest!()
       const hrEnd = process.hrtime(hrStart)
       const [, timeTakenInNanoSeconds] = hrEnd
       samples.push(timeTakenInNanoSeconds)
@@ -57,10 +63,7 @@ export function executeBenchmarkSync(benchmark: Benchmark): BenchmarkResults {
 }
 
 export async function executeBenchmarkAsync(benchmark: Benchmark): Promise<BenchmarkResults> {
-  if (!benchmark.asyncFunctionUnderTest) {
-    throw new Error('Async function under test is not set')
-  }
-  await warmupAsync(benchmark.warmupCycles, benchmark.asyncFunctionUnderTest)
+  await warmupAsync(benchmark.warmupCycles, benchmark.asyncFunctionUnderTest!)
 
   // Perform all cycles
   const significantSamples = []
@@ -69,7 +72,7 @@ export async function executeBenchmarkAsync(benchmark: Benchmark): Promise<Bench
     const samples = []
     for (let i = 0; i < benchmark.benchmarkCycleSamples; i++) {
       const hrStart = process.hrtime()
-      await benchmark.asyncFunctionUnderTest()
+      await benchmark.asyncFunctionUnderTest!()
       const hrEnd = process.hrtime(hrStart)
       const [, timeTakenInNanoSeconds] = hrEnd
       samples.push(timeTakenInNanoSeconds)

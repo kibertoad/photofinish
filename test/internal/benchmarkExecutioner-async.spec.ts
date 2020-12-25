@@ -22,7 +22,22 @@ describe('benchmarkExecutioner', () => {
       const benchmarkResult = await benchmark.executeAsync()
       expect(benchmarkResult.meanTime).toBeInstanceOf(Measurement)
       // @ts-ignore
-      expect(benchmarkResult.meanTime.getTimeInMilliSeconds()).toHavePercentageDifference(100, 10)
+      expect(benchmarkResult.meanTime.getTimeInMilliSeconds()).toHavePercentageDifference(100, 15)
+    })
+
+    it('throws an error if wrong function is set', () => {
+      const benchmarkBuilder = new BenchmarkBuilder()
+      const benchmark = benchmarkBuilder
+        .benchmarkName('Dummy name')
+        .warmupCycles(500)
+        .benchmarkCycles(44)
+        .benchmarkCycleSamples(55)
+        .functionUnderTest(() => {})
+        .build()
+
+      expect(() => {
+        benchmark.executeAsync()
+      }).toThrow(/Function under test is synchronous, use execute\(\) instead/)
     })
   })
 })

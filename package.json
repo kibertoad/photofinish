@@ -1,6 +1,6 @@
 {
   "name": "photofinish",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "license": "MIT",
   "description": "Benchmarking library for Node.js that emphasizes convenience of use",
   "maintainers": [
@@ -13,10 +13,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "jest --config=jest.config.json --runInBand",
+    "test": "jest --config=jest.config.json",
     "test:update-snapshots": "jest --config=jest.config.json -u",
-    "test:coverage": "jest --config=jest.config.json --coverage --runInBand",
-    "test:ci": "npm run lint && npm run test:coverage",
+    "test:coverage": "jest --config=jest.config.json --coverage",
+    "test:everything": "npm run lint && npm run test:coverage",
     "lint": "eslint --format codeframe \"lib/**/*.ts\" \"test/**/*.ts\"",
     "prettier": "prettier --write \"{lib,test}/**/*.{js,ts}\" index.ts",
     "prepublishOnly": "pinst --disable && npm run build",

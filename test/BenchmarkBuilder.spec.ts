@@ -8,12 +8,29 @@ describe('BenchmarkBuilder', () => {
       .benchmarkName('Dummy name')
       .benchmarkEntryName('Only entry')
       .benchmarkEntryVersion('1.0.1')
+      .benchmarkLabel('label1')
       .warmupCycles(500)
       .benchmarkCycles(44)
       .benchmarkCycleSamples(55)
       .functionUnderTest(() => {})
 
     expect(benchmark).toMatchSnapshot()
+  })
+
+  it('requires to set at least one function', () => {
+    const benchmarkBuilder = new BenchmarkBuilder()
+
+    expect(() => {
+      benchmarkBuilder
+        .benchmarkName('Dummy name')
+        .benchmarkEntryName('Only entry')
+        .benchmarkEntryVersion('1.0.1')
+        .benchmarkLabel('label1')
+        .warmupCycles(500)
+        .benchmarkCycles(44)
+        .benchmarkCycleSamples(55)
+        .build()
+    }).toThrow(/Either asyncFunctionUnderTest or functionUnderTest needs to bet set/)
   })
 
   it('does not allow to set asyncFunctionUnderTest if functionUnderTest is set', () => {
@@ -29,6 +46,20 @@ describe('BenchmarkBuilder', () => {
         .functionUnderTest(() => {})
         .asyncFunctionUnderTest(() => Promise.resolve())
     }).toThrow(/functionUnderTest is already set/)
+  })
+
+  it('does not allow to set async function as functionUnderTest', () => {
+    const benchmarkBuilder = new BenchmarkBuilder()
+
+    expect(() => {
+      benchmarkBuilder
+        .benchmarkName('Dummy name')
+        .benchmarkEntryName('Only entry')
+        .warmupCycles(500)
+        .benchmarkCycles(44)
+        .benchmarkCycleSamples(55)
+        .functionUnderTest(() => Promise.resolve())
+    }).toThrow(/Please use .asyncFunctionUnderTest\(\) method for benchmarking async functions/)
   })
 
   it('does not allow to set functionUnderTest if asyncFunctionUnderTest is set', () => {
