@@ -13,10 +13,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "jest --config=jest.config.json",
+    "test": "jest --config=jest.config.json --runInBand",
     "test:update-snapshots": "jest --config=jest.config.json -u",
-    "test:coverage": "jest --config=jest.config.json --coverage",
-    "test:everything": "npm run lint && npm run test:coverage",
+    "test:coverage": "jest --config=jest.config.json --coverage --runInBand",
+    "test:everything": "npm run lint && npm run test:coverage --runInBand",
     "lint": "eslint --format codeframe \"lib/**/*.ts\" \"test/**/*.ts\"",
     "prettier": "prettier --write \"{lib,test}/**/*.{js,ts}\" index.ts",
     "prepublishOnly": "pinst --disable && npm run build",
@@ -27,6 +27,7 @@
     "load-goblin": "^1.0.2",
     "markdown-table": "^2.0.0",
     "percentile": "^1.4.0",
+    "sort-on": "^4.1.0",
     "stats-lite": "^2.2.0"
   },
   "devDependencies": {

@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`tableGenerator generateTable generate correct table sorted by multiple fields 1`] = `
+"| Node | Option    | Msecs/op      | Ops/sec | V8 |
+| ---- | --------- | ------------- | ------- | -- |
+| 222  | aaa 1.0.0 | 101.745 msecs | 9.829   |    |
+| 111  | aaa 1.0.0 | 101.745 msecs | 9.829   |    |
+| 222  | bbb 1.0.0 | 101.745 msecs | 9.829   |    |
+| 111  | bbb 1.0.0 | 101.745 msecs | 9.829   |    |"
+`;
+
+exports[`tableGenerator generateTable generate correct table sorted by single field 1`] = `
+"| Node    | Option            | Msecs/op    | Ops/sec    | V8                    |
+| ------- | ----------------- | ----------- | ---------- | --------------------- |
+| 10.23.0 | Dummy entry 1.0.0 | 0.009 msecs | 113636.364 | V8 6.8.275.32-node.59 |
+| 10.23.0 | Dummy entry 1.0.0 | 0.008 msecs | 129870.130 | V8 6.8.275.32-node.59 |
+| 10.23.0 | Dummy entry 1.0.0 | 0.007 msecs | 151515.152 | V8 6.8.275.32-node.59 |
+| 10.23.0 | Dummy entry 1.0.0 | 0.005 msecs | 181818.182 | V8 6.8.275.32-node.59 |"
+`;
+
 exports[`tableGenerator generateTable generate correct table with version 1`] = `
 "| Node    | Option            | Msecs/op      | Ops/sec | V8                    |
 | ------- | ----------------- | ------------- | ------- | --------------------- |
