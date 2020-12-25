@@ -12,6 +12,10 @@ export type TableData = {
   benchmarkEntryVersion?: string
   meanTimeNs: number
   meanTimeMs?: number
+  warmupCycles: number
+  benchmarkCycles: number
+  benchmarkCycleSamples: number
+  label?: string
 }
 
 export type ExportOptions = {
@@ -28,18 +32,19 @@ export function exportResults(
     benchmarkName: benchmarkResults.benchmarkName,
     benchmarkEntryName: benchmarkResults.benchmarkEntryName,
     benchmarkEntryVersion: benchmarkResults.benchmarkEntryVersion,
+    benchmarkCycles: benchmarkResults.benchmarkCycles,
+    benchmarkCycleSamples: benchmarkResults.benchmarkCycleSamples,
+    label: benchmarkResults.label,
+    warmupCycles: benchmarkResults.warmupCycles,
     meanTimeNs: benchmarkResults.meanTime.getTimeInNanoSeconds(),
     meanTimeMs: benchmarkResults.meanTime.getTimeInMilliSeconds(),
   }
 
-  const filename = `${benchmarkResults.benchmarkName}-${
+  const labelSuffix = benchmarkResults.label ? `-${benchmarkResults.label}` : ''
+  const filename = `${normalizePath(benchmarkResults.benchmarkName)}-${normalizePath(
     benchmarkResults.benchmarkEntryName
-  }-Node_${nodeVersion.slice(0, 2)}.json`
-  const resolvedPathDir = path.resolve(
-    exportPath,
-    normalizePath(benchmarkResults.benchmarkName),
-    normalizePath(benchmarkResults.benchmarkEntryName)
-  )
+  )}-Node_${nodeVersion.slice(0, 2)}${labelSuffix}.json`
+  const resolvedPathDir = path.resolve(exportPath)
   const resolvedPathFile = path.resolve(resolvedPathDir, filename)
 
   fs.mkdirSync(resolvedPathDir, { recursive: true })

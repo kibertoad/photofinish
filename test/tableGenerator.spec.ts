@@ -9,6 +9,10 @@ describe('tableGenerator', () => {
         benchmarkName: 'Dummy benchmark',
         benchmarkEntryName: 'Benchmark entry',
         meanTimeNs: 101744870,
+        warmupCycles: 10,
+        label: 'dummy',
+        benchmarkCycleSamples: 50,
+        benchmarkCycles: 100,
       }
 
       expect(generateTable([result])).toMatchSnapshot()
@@ -21,6 +25,10 @@ describe('tableGenerator', () => {
         benchmarkEntryName: 'Dummy entry',
         benchmarkEntryVersion: '1.0.0',
         meanTimeNs: 101744870,
+        warmupCycles: 10,
+        label: 'dummy',
+        benchmarkCycleSamples: 50,
+        benchmarkCycles: 100,
       }
 
       expect(generateTable([result])).toMatchSnapshot()

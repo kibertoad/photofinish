@@ -7,7 +7,7 @@ const exportPath = `${__dirname}/results`
 
 const nodeVersion = process.versions.node
 const runtimeVersion = `${nodeVersion}, V8 ${process.versions.v8}`
-const filename = `${nodeVersion.slice(0, 2)}.json`
+const nodeText = `${nodeVersion.slice(0, 2)}`
 
 describe('resultsExporter', () => {
   describe('exportResults', () => {
@@ -15,23 +15,31 @@ describe('resultsExporter', () => {
       const fileTestHelper = new FileTestHelper()
       const results: BenchmarkResults = {
         benchmarkName: 'Benchmark',
-        benchmarkEntryName: 'Benchmark entry',
+        benchmarkEntryName: 'Benchmark_entry',
         meanTime: new Measurement(450),
+        warmupCycles: 10,
+        label: 'dummy',
+        benchmarkCycleSamples: 50,
+        benchmarkCycles: 100,
       }
       exportResults(results, {
         exportPath,
       })
 
-      const expectedFilePath = `${exportPath}/benchmark/benchmark_entry/${results.benchmarkName}-${results.benchmarkEntryName}-Node_${filename}`
+      const expectedFilePath = `${exportPath}/${results.benchmarkName}-${results.benchmarkEntryName}-Node_${nodeText}-dummy.json`
       expect(fileTestHelper.fileExists(expectedFilePath)).toBe(true)
       const storedResultsAsText = fileTestHelper.getFileTextContent(expectedFilePath)
       const storedResults = JSON.parse(storedResultsAsText)
       expect(storedResults).toEqual({
-        benchmarkEntryName: 'Benchmark entry',
+        benchmarkEntryName: 'Benchmark_entry',
         benchmarkName: 'Benchmark',
         meanTimeMs: 0.00045,
         meanTimeNs: 450,
         runtimeVersion: runtimeVersion,
+        warmupCycles: 10,
+        label: 'dummy',
+        benchmarkCycleSamples: 50,
+        benchmarkCycles: 100,
       })
       fileTestHelper.deleteDir(exportPath)
     })

@@ -1,6 +1,7 @@
 # photofinish
-  [![NPM Version][npm-image]][npm-url]
-  [![Linux Build][circleci-image]][circleci-url]
+[![NPM Version][npm-image]][npm-url]
+![](https://github.com/kibertoad/photofinish/workflows/ci/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/kibertoad/photofinish/badge.svg?branch=master)](https://coveralls.io/r/kibertoad/photofinish?branch=master)
 
 Benchmarking library for Node.js that emphasizes convenience of use
 

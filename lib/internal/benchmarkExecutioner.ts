@@ -7,6 +7,10 @@ export type BenchmarkResults = {
   benchmarkEntryName: string
   benchmarkEntryVersion?: string
   meanTime: Measurement
+  warmupCycles: number
+  benchmarkCycles: number
+  benchmarkCycleSamples: number
+  label?: string
 }
 
 async function warmupAsync(warmupCycles: number, functionUnderTest: AsyncFunctionType) {
@@ -27,6 +31,11 @@ function processResults(benchmark: Benchmark, significantSamples: number[]): Ben
   return {
     benchmarkName: benchmark.benchmarkName,
     benchmarkEntryName: benchmark.benchmarkEntryName,
+    benchmarkEntryVersion: benchmark.benchmarkEntryVersion,
+    warmupCycles: benchmark.warmupCycles,
+    benchmarkCycles: benchmark.benchmarkCycles,
+    benchmarkCycleSamples: benchmark.benchmarkCycleSamples,
+    label: benchmark.label,
     meanTime: new Measurement(meanTime),
   }
 }

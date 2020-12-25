@@ -17,6 +17,10 @@ export async function loadResults(baseResultsDir: string): Promise<TableData[]> 
       benchmarkEntryVersion: entry.content.benchmarkEntryVersion,
       meanTimeNs: entry.content.meanTimeNs,
       meanTimeMs: entry.content.meanTimeMs,
+      warmupCycles: entry.content.warmupCycles,
+      benchmarkCycles: entry.content.benchmarkCycles,
+      benchmarkCycleSamples: entry.content.benchmarkCycleSamples,
+      label: entry.content.label,
     }
   })
 }

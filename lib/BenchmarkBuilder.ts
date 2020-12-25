@@ -13,6 +13,7 @@ export type Benchmark = {
   benchmarkEntryName: string // What solution are we benchmarking, e. g. bubble sort
   benchmarkEntryVersion?: string
   nodeVersion: string
+  label?: string
   warmupCycles: number // How many times function will be run before benchmarking starts in order to allow Node.js to perform optimizations
   benchmarkCycles: number // How many execution cycles are executed in order to collect samples
   benchmarkCycleSamples: number // How many samples per cycle are generated. Note that samples below 15 and above 85 percentile are discarded as insignificant
@@ -29,6 +30,7 @@ export class BenchmarkBuilder {
   private _warmupCycles = 1000
   private _benchmarkCycles = 20000
   private _benchmarkCycleSamples = 100
+  private _label?: string
   private _functionUnderTest: (() => any) | undefined
   private _asyncFunctionUnderTest: (() => Promise<any>) | undefined
 
@@ -44,6 +46,11 @@ export class BenchmarkBuilder {
 
   benchmarkEntryVersion(version: string): BenchmarkBuilder {
     this._benchmarkEntryVersion = version
+    return this
+  }
+
+  benchmarkLabel(label: string): BenchmarkBuilder {
+    this._label = label
     return this
   }
 
@@ -103,6 +110,8 @@ export class BenchmarkBuilder {
       nodeVersion: process.versions.node,
       benchmarkName: this._benchmarkName,
       benchmarkEntryName: this._benchmarkEntryName,
+      benchmarkEntryVersion: this._benchmarkEntryVersion,
+      label: this._label,
       warmupCycles: this._warmupCycles,
       benchmarkCycles: this._benchmarkCycles,
       benchmarkCycleSamples: this._benchmarkCycleSamples,
