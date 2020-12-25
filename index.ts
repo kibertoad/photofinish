@@ -6,3 +6,4 @@ export type { Benchmark, FunctionType, AsyncFunctionType } from './lib/Benchmark
 export type { Measurement } from './lib/Measurement'
 export type { BenchmarkResults } from './lib/internal/benchmarkExecutioner'
 export type { ExportOptions, TableData } from './lib/resultsExporter'
+export type { SortParam } from './lib/tableGenerator'
